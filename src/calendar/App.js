@@ -63,9 +63,15 @@ export default class App extends Component {
 
     changeMonth = e => this.calculateNewMonthAndYear('current', e.target.dataset.action);
 
+    showNotes = e => {
+        const activeNotes = document.querySelector('#calendar-container').querySelectorAll('.active-note');
+        activeNotes.forEach(item => item.classList.remove('active-note'));
+        e.target.firstElementChild.classList.toggle('active-note');
+    };
+
     render() {
         return (
-            <div className='calendar-container'>
+            <div id='calendar-container' className='calendar-container'>
                 <Time
                     date={this.state.date}
                     backToCurrentMonth={this.backToCurrentMonth}
@@ -81,6 +87,7 @@ export default class App extends Component {
                     year={this.state.year}
                     goToPreviousMonth={this.goToPreviousMonth}
                     goToNextMonth={this.goToNextMonth}
+                    showNotes={this.showNotes}
                 />
             </div>
         )
