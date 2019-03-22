@@ -52,6 +52,11 @@ td:hover {
     border: 2px solid rgba(256, 256, 256, 0.4);
 }
 
+.active-day {
+    background: rgba(256, 256, 256, 0.1);
+    border: 2px solid rgba(256, 256, 256, 0.4);
+}
+
 .time-container {
     height: 70px;
     line-height: 70px;
@@ -94,7 +99,7 @@ td:hover {
     color: whitesmoke;
 }
 
-.fa-angle-up {
+.fa-angle-down {
     margin-right: 20px;
 }
 
@@ -129,7 +134,7 @@ td:hover {
     align-items: center;
 }
 
-.add-note-form button{
+.add-note-form button {
     border-radius: 50%;
     cursor: pointer;
     border: none;
@@ -137,10 +142,15 @@ td:hover {
     font-size: 26px;
     background: #555;
     color: whitesmoke;
+    text-decoration: none;
 }
 
 .add-note-form button:hover {
     background: #999;
+}
+
+.add-note-form button:focus {
+    outline: 0;
 }
 
 .add-note-form input {
@@ -148,4 +158,5 @@ td:hover {
     flex-grow: 1;
     height: 25px;
     font-family: 'Montserrat', sans-serif;
+    padding-left: 5px;
 }

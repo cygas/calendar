@@ -29,7 +29,7 @@ export default class Calendar extends Component {
                 key={`month-${this.props.month + 1}-day-${i}`}
                 onClick={this.props.showNotes}>
                 {i}
-                <div className='inactive-note'>{`month-${this.props.month + 1}-day-${i}`}</div>
+                <div data-note={`month-${this.props.month + 1}-day-${i}`} className='inactive-note'>{`month-${this.props.month + 1}-day-${i}`}</div>
             </td>);
         }
 

@@ -8,6 +8,15 @@ const date = new Date(),
     monthAction = {
         up: 1,
         down: -1
+    },
+    removeClassFromContainer = (container, className) => {
+        container.querySelectorAll(`.${className}`)
+            .forEach(item => item.classList.remove(className));
+    },
+    addClassToElementIfTrue = (element, className, condition) => {
+        if (!condition) {
+            element.classList.add(className);
+        }
     };
 
 export default class App extends Component {
@@ -65,16 +74,23 @@ export default class App extends Component {
     changeMonth = e => this.calculateNewMonthAndYear('current', e.target.dataset.action);
 
     showNotes = e => {
-        const note = e.target.firstElementChild,
-            isActive = note.classList.contains('active-note');
+        if (e.target.dataset.note) return;
+        const day = e.target,
+            note = day.firstElementChild,
+            dayClass = 'active-day',
+            noteClass = 'active-note',
+            isActiveNote = note.classList.contains(noteClass),
+            isActiveDay = day.classList.contains(dayClass),
+            calendarContainer = document.querySelector('#calendar-container');
 
-        document.querySelector('#calendar-container')
-            .querySelectorAll('.active-note')
-            .forEach(item => item.classList.remove('active-note'));
+        removeClassFromContainer(calendarContainer, dayClass);
+        removeClassFromContainer(calendarContainer, noteClass);
+        addClassToElementIfTrue(day, dayClass, isActiveDay);
+        addClassToElementIfTrue(note, noteClass, isActiveNote);
+    };
 
-        if (!isActive) {
-            note.classList.add('active-note');
-        }
+    addNoteToDate = e => {
+        e.preventDefault();
     };
 
     render() {
@@ -100,7 +116,7 @@ export default class App extends Component {
                     />
 
                 </div>
-                <AddNote/>
+                <AddNote addNoteToDate={this.addNoteToDate}/>
             </div>
         )
     }
