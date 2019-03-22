@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Calendar from './components/Calendar';
 import Header from './components/Header';
 import Time from './components/Time';
+import AddNote from './components/AddNote';
 
 const date = new Date(),
     monthAction = {
@@ -78,24 +79,28 @@ export default class App extends Component {
 
     render() {
         return (
-            <div id='calendar-container' className='calendar-container'>
-                <Time
-                    date={this.state.date}
-                    backToCurrentMonth={this.backToCurrentMonth}
-                />
-                <Header
-                    month={this.state.month}
-                    year={this.state.year}
-                    changeMonth={this.changeMonth}
-                />
-                <Calendar
-                    date={this.state.date}
-                    month={this.state.month}
-                    year={this.state.year}
-                    goToPreviousMonth={this.goToPreviousMonth}
-                    goToNextMonth={this.goToNextMonth}
-                    showNotes={this.showNotes}
-                />
+            <div className='main-container'>
+                <div id='calendar-container' className='calendar-container'>
+                    <Time
+                        date={this.state.date}
+                        backToCurrentMonth={this.backToCurrentMonth}
+                    />
+                    <Header
+                        month={this.state.month}
+                        year={this.state.year}
+                        changeMonth={this.changeMonth}
+                    />
+                    <Calendar
+                        date={this.state.date}
+                        month={this.state.month}
+                        year={this.state.year}
+                        goToPreviousMonth={this.goToPreviousMonth}
+                        goToNextMonth={this.goToNextMonth}
+                        showNotes={this.showNotes}
+                    />
+
+                </div>
+                <AddNote/>
             </div>
         )
     }

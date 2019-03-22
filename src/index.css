@@ -13,12 +13,16 @@ code {
     monospace;
 }
 
+.main-container {
+    display: table;
+    margin: 50px auto;
+}
 
 .calendar-container {
     padding: 0 10px;
     background: #555555;
     color: whitesmoke;
-    margin: 50px auto;
+    margin-bottom: 10px;
     font-family: 'Montserrat', sans-serif;
     display: table;
 }
@@ -65,6 +69,11 @@ td:hover {
     justify-content: center;
     line-height: 20px;
     cursor: pointer;
+    color: #999;
+}
+
+.time-date:hover {
+    color: whitesmoke;
 }
 
 .table-header {
@@ -77,10 +86,12 @@ td:hover {
 
 .arrow-container {
     font-size: 28px;
+    color: #999;
 }
 
-.arrow-container i {
+.arrow-container i:hover {
     cursor: pointer;
+    color: whitesmoke;
 }
 
 .fa-angle-up {
@@ -111,4 +122,30 @@ td:hover {
     color: #333;
     padding: 5px 10px;
     border-radius: 2px;
+}
+
+.add-note-form {
+    display: flex;
+    align-items: center;
+}
+
+.add-note-form button{
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    padding: 4px 12px;
+    font-size: 26px;
+    background: #555;
+    color: whitesmoke;
+}
+
+.add-note-form button:hover {
+    background: #999;
+}
+
+.add-note-form input {
+    margin-right: 10px;
+    flex-grow: 1;
+    height: 25px;
+    font-family: 'Montserrat', sans-serif;
 }
