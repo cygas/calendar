@@ -26,7 +26,11 @@ export default class Calendar extends Component {
                 className={this.props.date.getDate() === i
                 && this.props.month === this.props.date.getMonth()
                 && this.props.year === this.props.date.getFullYear() ? 'current-day' : null}
-                key={`month-${this.props.month + 1}-day-${i}`}>{i}</td>);
+                key={`month-${this.props.month + 1}-day-${i}`}
+                onClick={this.props.showNotes}>
+                {i}
+                <div className='inactive-note'>{`month-${this.props.month + 1}-day-${i}`}</div>
+            </td>);
         }
 
         for (let i = 1; i <= 8 - nextMonthFirstDay; i++) {
