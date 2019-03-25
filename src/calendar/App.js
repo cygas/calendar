@@ -24,6 +24,8 @@ export default class App extends Component {
         date: new Date(),
         month: Number(date.getMonth()),
         year: Number(date.getFullYear()),
+        day: '',
+        note: ''
     };
 
     componentDidMount() {
@@ -83,14 +85,27 @@ export default class App extends Component {
             isActiveDay = day.classList.contains(dayClass),
             calendarContainer = document.querySelector('#calendar-container');
 
+        this.setState({day: day.id});
         removeClassFromContainer(calendarContainer, dayClass);
         removeClassFromContainer(calendarContainer, noteClass);
         addClassToElementIfTrue(day, dayClass, isActiveDay);
-        addClassToElementIfTrue(note, noteClass, isActiveNote);
+        if(note.textContent) {
+            addClassToElementIfTrue(note, noteClass, isActiveNote);
+        }
+    };
+
+    addNoteToState = e => {
+        this.setState({note: e.target.value});
     };
 
     addNoteToDate = e => {
         e.preventDefault();
+        const checkedDay = document.querySelector(`#${this.state.day}`);
+        if(checkedDay) {
+            checkedDay.firstElementChild.textContent = this.state.note;
+            addClassToElementIfTrue(checkedDay.firstElementChild, 'active-note', false);
+            this.setState({note: ''});
+        }
     };
 
     render() {
@@ -116,7 +131,11 @@ export default class App extends Component {
                     />
 
                 </div>
-                <AddNote addNoteToDate={this.addNoteToDate}/>
+                <AddNote
+                    note={this.state.note}
+                    addNoteToState = {this.addNoteToState}
+                    addNoteToDate={this.addNoteToDate}
+                />
             </div>
         )
     }
