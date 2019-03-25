@@ -7,8 +7,8 @@ export default class Header extends Component {
             <div className='table-header'>
                 <div>{months[this.props.month]} {this.props.year}</div>
                 <div className='arrow-container'>
-                    <i className="fas fa-angle-up" data-action="up" onClick={this.props.changeMonth}></i>
                     <i className="fas fa-angle-down" data-action="down" onClick={this.props.changeMonth}></i>
+                    <i className="fas fa-angle-up" data-action="up" onClick={this.props.changeMonth}></i>
                 </div>
             </div>
         )

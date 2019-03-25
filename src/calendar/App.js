@@ -2,11 +2,21 @@ import React, {Component} from 'react';
 import Calendar from './components/Calendar';
 import Header from './components/Header';
 import Time from './components/Time';
+import AddNote from './components/AddNote';
 
 const date = new Date(),
     monthAction = {
         up: 1,
         down: -1
+    },
+    removeClassFromContainer = (container, className) => {
+        container.querySelectorAll(`.${className}`)
+            .forEach(item => item.classList.remove(className));
+    },
+    addClassToElementIfTrue = (element, className, condition) => {
+        if (!condition) {
+            element.classList.add(className);
+        }
     };
 
 export default class App extends Component {
@@ -14,6 +24,8 @@ export default class App extends Component {
         date: new Date(),
         month: Number(date.getMonth()),
         year: Number(date.getFullYear()),
+        day: '',
+        note: ''
     };
 
     componentDidMount() {
@@ -64,30 +76,65 @@ export default class App extends Component {
     changeMonth = e => this.calculateNewMonthAndYear('current', e.target.dataset.action);
 
     showNotes = e => {
-        const activeNotes = document.querySelector('#calendar-container').querySelectorAll('.active-note');
-        activeNotes.forEach(item => item.classList.remove('active-note'));
-        e.target.firstElementChild.classList.toggle('active-note');
+        if (e.target.dataset.note) return;
+        const day = e.target,
+            note = day.firstElementChild,
+            dayClass = 'active-day',
+            noteClass = 'active-note',
+            isActiveNote = note.classList.contains(noteClass),
+            isActiveDay = day.classList.contains(dayClass),
+            calendarContainer = document.querySelector('#calendar-container');
+
+        this.setState({day: day.id});
+        removeClassFromContainer(calendarContainer, dayClass);
+        removeClassFromContainer(calendarContainer, noteClass);
+        addClassToElementIfTrue(day, dayClass, isActiveDay);
+        if(note.textContent) {
+            addClassToElementIfTrue(note, noteClass, isActiveNote);
+        }
+    };
+
+    addNoteToState = e => {
+        this.setState({note: e.target.value});
+    };
+
+    addNoteToDate = e => {
+        e.preventDefault();
+        const checkedDay = document.querySelector(`#${this.state.day}`);
+        if(checkedDay) {
+            checkedDay.firstElementChild.textContent = this.state.note;
+            addClassToElementIfTrue(checkedDay.firstElementChild, 'active-note', false);
+            this.setState({note: ''});
+        }
     };
 
     render() {
         return (
-            <div id='calendar-container' className='calendar-container'>
-                <Time
-                    date={this.state.date}
-                    backToCurrentMonth={this.backToCurrentMonth}
-                />
-                <Header
-                    month={this.state.month}
-                    year={this.state.year}
-                    changeMonth={this.changeMonth}
-                />
-                <Calendar
-                    date={this.state.date}
-                    month={this.state.month}
-                    year={this.state.year}
-                    goToPreviousMonth={this.goToPreviousMonth}
-                    goToNextMonth={this.goToNextMonth}
-                    showNotes={this.showNotes}
+            <div className='main-container'>
+                <div id='calendar-container' className='calendar-container'>
+                    <Time
+                        date={this.state.date}
+                        backToCurrentMonth={this.backToCurrentMonth}
+                    />
+                    <Header
+                        month={this.state.month}
+                        year={this.state.year}
+                        changeMonth={this.changeMonth}
+                    />
+                    <Calendar
+                        date={this.state.date}
+                        month={this.state.month}
+                        year={this.state.year}
+                        goToPreviousMonth={this.goToPreviousMonth}
+                        goToNextMonth={this.goToNextMonth}
+                        showNotes={this.showNotes}
+                    />
+
+                </div>
+                <AddNote
+                    note={this.state.note}
+                    addNoteToState = {this.addNoteToState}
+                    addNoteToDate={this.addNoteToDate}
                 />
             </div>
         )
