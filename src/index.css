@@ -52,9 +52,14 @@ td:hover {
     border: 2px solid rgba(256, 256, 256, 0.4);
 }
 
+td ul {
+    list-style-position: inside;
+    text-align: left;
+}
+
 .active-day {
     background: rgba(256, 256, 256, 0.1);
-    border: 2px solid rgba(256, 256, 256, 0.4);
+    border: 2px solid rgba(256, 256, 256, 0.4) !important;
 }
 
 .time-container {
@@ -159,4 +164,8 @@ td:hover {
     height: 25px;
     font-family: 'Montserrat', sans-serif;
     padding-left: 5px;
+}
+
+.sth-to-do {
+    border: 2px solid #222;
 }

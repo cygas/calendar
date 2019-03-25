@@ -100,9 +100,13 @@ export default class App extends Component {
 
     addNoteToDate = e => {
         e.preventDefault();
+        if(!this.state.note) return;
         const checkedDay = document.querySelector(`#${this.state.day}`);
         if(checkedDay) {
-            checkedDay.firstElementChild.textContent = this.state.note;
+            checkedDay.classList.add('sth-to-do');
+            const newNote = document.createElement('li');
+            newNote.textContent = this.state.note;
+            checkedDay.firstElementChild.appendChild(newNote);
             addClassToElementIfTrue(checkedDay.firstElementChild, 'active-note', false);
             this.setState({note: ''});
         }
